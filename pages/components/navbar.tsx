@@ -21,7 +21,7 @@ const Navbar = () => {
           <li><Link href="/contact">Contact</Link></li>
         </ul>
       </span>
-      <span className="hidden sm:flex">
+      <span>
       <ul className="flex gap-10">
           <li><CiSearch  className="scale-150"/></li>
           <li><CiHeart className="scale-150"/></li>
