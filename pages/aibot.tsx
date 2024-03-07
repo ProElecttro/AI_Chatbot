@@ -1,10 +1,13 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import OpenAI from "openai";
 
+import dotenv from "dotenv"
+dotenv.config()
+
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY || "",
   dangerouslyAllowBrowser: true,
 });
 
@@ -28,8 +31,6 @@ const Aibot = () => {
     } catch (error) {
       console.error(error);
     }
-
-    // .message.content
   };
 
   const handleOnClick = () => {
@@ -38,6 +39,7 @@ const Aibot = () => {
       { role: "user", content: prompt },
     ];
     // const content = await
+    setResponse("Loading...")
     func(messages);
     // console.log(content)
     // console.log(typeof content)
@@ -64,7 +66,7 @@ const Aibot = () => {
         <div className="flex justify-center">
         <button
           onClick={handleOnClick}
-          className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded"
+          className="mt-2 bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded"
         >
           Send
         </button>
