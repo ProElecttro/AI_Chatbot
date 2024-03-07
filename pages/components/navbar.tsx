@@ -13,7 +13,7 @@ const Navbar = () => {
         height={0} // auto height
         alt="pic"
       />
-      <span className="mx-3 sm:flex">
+      <span>
         <ul className="flex gap-10">
           <li><Link href="/">Home</Link></li>
           <li><Link href="/about">About</Link></li>
