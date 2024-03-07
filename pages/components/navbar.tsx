@@ -13,7 +13,7 @@ const Navbar = () => {
         height={0} // auto height
         alt="pic"
       />
-      <span>
+      <span className="mx-3 sm:flex">
         <ul className="flex gap-10">
           <li><Link href="/">Home</Link></li>
           <li><Link href="/about">About</Link></li>
@@ -21,7 +21,7 @@ const Navbar = () => {
           <li><Link href="/contact">Contact</Link></li>
         </ul>
       </span>
-      <span>
+      <span className="hidden sm:flex">
       <ul className="flex gap-10">
           <li><CiSearch  className="scale-150"/></li>
           <li><CiHeart className="scale-150"/></li>
