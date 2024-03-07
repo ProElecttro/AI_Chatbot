@@ -1,21 +1,21 @@
 import Head from "next/head";
 import { useState } from "react";
+import dotenv from "dotenv";
 
 import OpenAI from "openai";
-
-import dotenv from "dotenv"
-dotenv.config()
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
-const Aibot = () => {
-  const [prompt, setPrompt] = useState();
-  const [response, setResponse] = useState("");
+dotenv.config();
 
-  const handleChange = (event: any) => {
+const Aibot = () => {
+  const [prompt, setPrompt] = useState<string>("");
+  const [response, setResponse] = useState<string>();
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(event.target.value);
   };
 
@@ -26,23 +26,26 @@ const Aibot = () => {
         messages: messages,
         model: "gpt-3.5-turbo",
       });
-
-      setResponse(completion.choices[0].message.content || "");
+      
+      if (completion.choices && completion.choices.length > 0 && completion.choices[0].message.content) {
+        setResponse(completion.choices[0].message.content);
+      } else {
+        throw new Error("Invalid response format or missing data.");
+      }
     } catch (error) {
       console.error(error);
+      alert("Error: " + error);
     }
   };
+  
 
   const handleOnClick = () => {
     const messages = [
       // { role: "system", content: "You are a skilled JavaScript coder." },
       { role: "user", content: prompt },
     ];
-    // const content = await
-    setResponse("Loading...")
+    setResponse("Loading...");
     func(messages);
-    // console.log(content)
-    // console.log(typeof content)
   };
 
   return (
@@ -64,13 +67,13 @@ const Aibot = () => {
           onChange={handleChange}
         ></textarea>
         <div className="flex justify-center">
-        <button
-          onClick={handleOnClick}
-          className="mt-2 bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded"
-        >
-          Send
-        </button>
-      </div>
+          <button
+            onClick={handleOnClick}
+            className="mt-2 bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded"
+          >
+            Send
+          </button>
+        </div>
 
         <textarea
           className="my-3 border rounded-xl p-3 border-black"
